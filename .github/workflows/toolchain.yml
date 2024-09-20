@@ -1,0 +1,34 @@
+name: Toolchain build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  toolchain-build:
+    name: build-steps
+    runs-on: macos-13
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - uses: seanmiddleditch/gha-setup-ninja@master
+    - name: build-toolchain
+      run: |
+        git clone git://code.qt.io/qt/qt5.git qt6
+        cd qt6
+        git switch 6.7.3
+        perl init-repository --module-subset=qtbase,qtserialport,qtconnectivity,qtcharts
+        mkdir qt6-build
+        cd qt6-build
+        ../configure -static -prefix /usr/local/Qt/6.7.3-static/ -release -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
+        cmake --build . --parallel 4
+        sudo cmake --install .
+        ls
+        tar -czf qt6.7.3-static-mac.tar.gz /usr/local/Qt/6.7.3-static/
+        ls
+    - name: upload-toolchain
+      uses: actions/upload-artifact@v4
+      with:
+        name: toolchain
+        path: qt6/qt6-build/qt6.7.3-static-mac.tar.gz
