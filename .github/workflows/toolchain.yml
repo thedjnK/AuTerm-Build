@@ -17,18 +17,18 @@ jobs:
       run: |
         git clone git://code.qt.io/qt/qt5.git qt6
         cd qt6
-        git switch 6.7.3
+        git switch 6.8.0
         perl init-repository --module-subset=qtbase,qtserialport,qtconnectivity,qtcharts
         mkdir qt6-build
         cd qt6-build
-        ../configure -static -prefix /usr/local/Qt/6.7.3-static/ -release -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
+        ../configure -static -prefix /usr/local/Qt/6.8.0-static/ -release -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
         cmake --build . --parallel 4
         sudo cmake --install .
         ls
-        tar -czf qt6.7.3-static-mac.tar.gz /usr/local/Qt/6.7.3-static/
+        tar -czf qt6.8.0-static-mac.tar.gz /usr/local/Qt/6.8.0-static/
         ls
     - name: upload-toolchain
       uses: actions/upload-artifact@v4
       with:
         name: toolchain
-        path: qt6/qt6-build/qt6.7.3-static-mac.tar.gz
+        path: qt6/qt6-build/qt6.8.0-static-mac.tar.gz
