@@ -18,10 +18,10 @@ jobs:
         git clone git://code.qt.io/qt/qt5.git qt6
         cd qt6
         git switch 6.8.0
-        perl init-repository --module-subset=qtbase,qtserialport,qtconnectivity,qtcharts
+        ./init-repository --no-optional-deps --module-subset=qtbase,qtserialport,qtconnectivity,qtcharts
         mkdir qt6-build
         cd qt6-build
-        ../configure -static -prefix /usr/local/Qt/6.8.0-static/ -release -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
+        ../configure -static -prefix /usr/local/Qt/6.8.0-static/ -release -no-pch -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
         cmake --build . --parallel 4
         sudo cmake --install .
         ls
