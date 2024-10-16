@@ -18,7 +18,7 @@ jobs:
       with:
         name: toolchain
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        run-id: 11258693691
+        run-id: 11371155651
     - uses: seanmiddleditch/gha-setup-ninja@master
     - name: build-auterm
       run: |
