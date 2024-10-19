@@ -1,11 +1,12 @@
-name: AuTerm build
+name: AuTerm build (mac)
 
 on: workflow_dispatch
 
 jobs:
-  auterm-build:
+  auterm-build-mac:
     name: build-steps
     runs-on: macos-13
+    if: github.actor == 'thedjnK'
     steps:
     - name: checkout
       uses: actions/checkout@v4
