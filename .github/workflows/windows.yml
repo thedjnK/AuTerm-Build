@@ -1,0 +1,26 @@
+name: AuTerm build (Windows)
+
+on: workflow_dispatch
+
+jobs:
+  auterm-build-linux:
+    name: build-steps
+    runs-on: [self-hosted, "Windows"]
+    if: github.actor == 'thedjnK'
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        repository: thedjnK/AuTerm
+        ref: main
+        fetch-depth: 1
+        fetch-tags: false
+    - name: build-auterm
+      shell: cmd
+      run: |
+        E:\github\__build_scripts\build_windows.bat
+    - name: upload-auterm
+      uses: actions/upload-artifact@v4
+      with:
+        name: AuTerm-Windows
+        path: AuTerm.7z

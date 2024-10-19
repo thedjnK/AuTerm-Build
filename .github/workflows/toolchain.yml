@@ -1,4 +1,4 @@
-name: Toolchain build
+name: Toolchain build (mac)
 
 on: workflow_dispatch
 

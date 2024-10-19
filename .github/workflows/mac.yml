@@ -31,5 +31,5 @@ jobs:
     - name: upload-auterm
       uses: actions/upload-artifact@v4
       with:
-        name: auterm
+        name: AuTerm-mac
         path: AuTerm_test_Mac_v.tar.gz
