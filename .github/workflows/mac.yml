@@ -29,6 +29,7 @@ jobs:
         version=$(cat AuTerm/AutMainWindow.h  | grep "const QString UwVersion" | cut -d "\"" -f 2)
         cd release
         tar -czf ../AuTerm_test_Mac_x64_arm64_v$version.tar.gz AuTerm.app/
+        git rev-parse HEAD
     - name: upload-auterm
       uses: actions/upload-artifact@v4
       with:
