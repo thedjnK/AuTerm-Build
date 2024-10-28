@@ -16,4 +16,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: AuTerm-Linux
-        path: AuTerm.tar.gz
+        path: AuTerm_*.tar.gz

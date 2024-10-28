@@ -26,10 +26,11 @@ jobs:
         sudo tar -xf qt6.8.0-static-mac.tar.gz -C /
         /usr/local/Qt/6.8.0-static/bin/qmake6 -config release
         make -j4
+        version=$(cat AuTerm/AutMainWindow.h  | grep "const QString UwVersion" | cut -d "\"" -f 2)
         cd release
-        tar -czf ../AuTerm_test_Mac_v.tar.gz AuTerm.app/
+        tar -czf ../AuTerm_test_Mac_x64_arm64_v$version.tar.gz AuTerm.app/
     - name: upload-auterm
       uses: actions/upload-artifact@v4
       with:
         name: AuTerm-mac
-        path: AuTerm_test_Mac_v.tar.gz
+        path: AuTerm_test_Mac_x64_arm64_v*.tar.gz
