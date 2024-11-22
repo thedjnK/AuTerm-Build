@@ -11,7 +11,7 @@ jobs:
     - name: build-auterm
       shell: cmd
       run: |
-        E:\github\__build_scripts\build_linux.bat ${{ secrets.SENSITIVE_LINUX }} main
+        E:\github\__build_scripts\build_linux.bat ${{ secrets.SENSITIVE_LINUX }} testing
     - name: upload-auterm
       uses: actions/upload-artifact@v4
       with:
