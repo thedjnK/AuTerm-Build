@@ -12,8 +12,8 @@ jobs:
     - uses: seanmiddleditch/gha-setup-ninja@master
     - name: build-toolchain
       run: |
-        # xcode 15.2 is broken, use 15.1
-        sudo xcode-select -switch /Applications/Xcode_15.1.0.app
+        # xcode 15.2 is broken, xcode 15.1 is broken, use 14.3
+        sudo xcode-select -switch /Applications/Xcode_14.3.app
         git clone git://code.qt.io/qt/qt5.git qt6
         cd qt6
         git switch 6.8.0
