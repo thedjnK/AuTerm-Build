@@ -15,10 +15,11 @@ jobs:
         ref: main
         fetch-depth: 1
         fetch-tags: false
-        submodules: true
     - name: build-qtmgmt
       shell: cmd
       run: |
+        git submodule init
+        git submodule update
         E:\github\__build_scripts\build_qtmgmt_windows.bat
     - name: upload-qtmgmt
       uses: actions/upload-artifact@v4
