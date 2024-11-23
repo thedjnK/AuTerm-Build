@@ -1,0 +1,27 @@
+name: qtmgmt build (Windows)
+
+on: workflow_dispatch
+
+jobs:
+  qtmgmt-build-linux:
+    name: build-steps
+    runs-on: [self-hosted, "Windows"]
+    if: github.actor == 'thedjnK'
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        repository: thedjnK/qtmgmt
+        ref: main
+        fetch-depth: 1
+        fetch-tags: false
+        submodules: true
+    - name: build-qtmgmt
+      shell: cmd
+      run: |
+        E:\github\__build_scripts\build_qtmgmt_windows.bat
+    - name: upload-qtmgmt
+      uses: actions/upload-artifact@v4
+      with:
+        name: qtmgmt-Windows
+        path: qtmgmt_*.7z

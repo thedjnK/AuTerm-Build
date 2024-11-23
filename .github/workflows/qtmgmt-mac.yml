@@ -1,0 +1,40 @@
+name: qtmgmt build (mac)
+
+on: workflow_dispatch
+
+jobs:
+  qtmgmt-build-mac:
+    name: build-steps
+    runs-on: macos-13
+    if: github.actor == 'thedjnK'
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        repository: thedjnK/qtmgmt
+        ref: main
+        fetch-depth: 1
+        fetch-tags: false
+        submodules: true
+    - uses: actions/download-artifact@v4
+      with:
+        name: toolchain
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: 11970986800
+    - uses: seanmiddleditch/gha-setup-ninja@master
+    - name: build-qtmgmt
+      run: |
+        # xcode 15.2 is broken, xcode 15.1 is broken, use 14.3
+        sudo xcode-select -switch /Applications/Xcode_14.3.app
+        sudo tar -xf qt6.8.0-static-mac.tar.gz -C /
+        /usr/local/Qt/6.8.0-static/bin/qmake6 -config release
+        make -j4
+        cd release
+        ls
+        tar -czf ../qtmgmt_test_Mac_x64_arm64_vTEST.tar.gz qtmgmt.app/
+        git rev-parse HEAD
+    - name: upload-qtmgmt
+      uses: actions/upload-artifact@v4
+      with:
+        name: qtmgmt-mac
+        path: qtmgmt_test_Mac_x64_arm64_v*.tar.gz
