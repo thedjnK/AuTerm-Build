@@ -16,18 +16,18 @@ jobs:
         sudo xcode-select -switch /Applications/Xcode_14.3.app
         git clone git://code.qt.io/qt/qt5.git qt6
         cd qt6
-        git switch 6.8.0
+        git switch 6.8.1
         ./init-repository --no-optional-deps --module-subset=qtbase,qtserialport,qtconnectivity,qtcharts,qttools
         mkdir qt6-build
         cd qt6-build
-        ../configure -static -prefix /usr/local/Qt/6.8.0-static/ -release -no-pch -no-separate-debug-info -no-opengl -nomake examples -optimized-qmake -no-sql-mysql -no-sql-odbc -no-sql-psql -no-sql-sqlite -no-gif -ltcg -feature-linguist -no-feature-assistant -no-feature-designer -no-feature-distancefieldgenerator -no-feature-kmap2qmap  -no-feature-pixeltool -no-feature-qdbus -no-feature-qdoc -no-feature-qev -no-feature-qtattributionsscanner -no-feature-qtdiag -no-feature-qtplugininfo -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
+        ../configure -static -prefix /usr/local/Qt/6.8.1-static/ -release -no-pch -no-separate-debug-info -no-opengl -nomake examples -optimized-qmake -no-sql-mysql -no-sql-odbc -no-sql-psql -no-sql-sqlite -no-gif -ltcg -feature-linguist -no-feature-assistant -no-feature-designer -no-feature-distancefieldgenerator -no-feature-kmap2qmap  -no-feature-pixeltool -no-feature-qdbus -no-feature-qdoc -no-feature-qev -no-feature-qtattributionsscanner -no-feature-qtdiag -no-feature-qtplugininfo -- -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
         cmake --build . --parallel 4
         sudo cmake --install .
         ls
-        tar -czf qt6.8.0-static-mac.tar.gz /usr/local/Qt/6.8.0-static/
+        tar -czf qt6.8.1-static-mac.tar.gz /usr/local/Qt/6.8.1-static/
         ls
     - name: upload-toolchain
       uses: actions/upload-artifact@v4
       with:
         name: toolchain
-        path: qt6/qt6-build/qt6.8.0-static-mac.tar.gz
+        path: qt6/qt6-build/qt6.8.1-static-mac.tar.gz
